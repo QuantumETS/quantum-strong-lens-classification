@@ -4,7 +4,11 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "deeplenstronomy>=0.0.2.3",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.9",
+]
 
 [dependency-groups]
 dev = ["pytest>=9.0.3", "ruff>=0.15.13"]
