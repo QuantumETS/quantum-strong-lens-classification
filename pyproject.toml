@@ -1,7 +1,7 @@
 [project]
 name = "strong-lens-ml"
 version = "0.1.0"
-description = "Add your description here"
+description = "A quantum machine learning project for detecting strong gravitational lensing"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
