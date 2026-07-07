@@ -5,6 +5,7 @@ Quantum Classification for Strong Gravitation Lensing est un projet d'apprentiss
 ## Ce que contient ce répertoire
 
 Le projet contient les éléments suivants :
+
 - `src/`: Contient le code source pour le projet.
 - `notebooks/`: Contient des notebooks Jupyter pour l'exploration des librairies et la visualisation des données.
 - `data/`: Contient les données simulées pour l'entraînement et le test du modèle.
@@ -17,6 +18,7 @@ Le jeu de données utilisé dans ce projet est généré à l'aide de la librair
 
 Pour plus d'informations sur la génération du jeu de données, veuillez consulter le fichier `docs/deeplenstronomy_binary_dataset.md`.
 
+![Exemple d'image de lentille gravitationnelle](assets/dataset_samples.png)
 
 ## Contribuer à ce projet
 
