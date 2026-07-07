@@ -35,7 +35,9 @@ For binary lens detection, keep the simulated classes balanced unless you intent
 The key modeling distinction is the foreground object:
 
 - In `LENS_PRESENT`, the foreground `LENS` galaxy has a mass profile and appears in front of the `SOURCE` galaxy, so deeplenstronomy can lens the source light.
-- In `NO_LENS`, use a foreground galaxy with only light and no mass profile. This creates a realistic non-lens contaminant image without strong lensing.
+- In `NO_LENS`, use a foreground galaxy whose required mass profile has zero lensing strength. This creates a realistic non-lens contaminant image without strong lensing.
+
+Starting in `deeplenstronomy` version `0.0.1.8`, every `SPECIES.GALAXY_*` entry must include at least one `MASS_PROFILE_*`. For galaxies that should contribute light but no lensing, add a valid placeholder mass profile such as `CONVERGENCE` with `kappa: 0.0`. This satisfies the config validator while leaving the simulated lensing behavior unchanged.
 
 ## Example Binary Dataset Config
 
@@ -175,6 +177,12 @@ SPECIES:
                         PARAMETERS:
                             minimum: -0.25
                             maximum: 0.25
+        MASS_PROFILE_1:
+            NAME: CONVERGENCE
+            PARAMETERS:
+                kappa: 0.0
+                ra_0: 0.0
+                dec_0: 0.0
 
     GALAXY_3:
         NAME: SOURCE
@@ -223,6 +231,12 @@ SPECIES:
                         PARAMETERS:
                             minimum: -0.3
                             maximum: 0.3
+        MASS_PROFILE_1:
+            NAME: CONVERGENCE
+            PARAMETERS:
+                kappa: 0.0
+                ra_0: 0.0
+                dec_0: 0.0
 
     NOISE_1:
         NAME: POISSON_NOISE
