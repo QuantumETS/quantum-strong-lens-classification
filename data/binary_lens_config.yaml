@@ -1,0 +1,295 @@
+DATASET:
+  NAME: BinaryStrongLensDataset
+  PARAMETERS:
+    SIZE: 1000
+    OUTDIR: data/binary_lens_raw
+    SEED: 42
+
+COSMOLOGY:
+  PARAMETERS:
+    H0: 70
+    Om0: 0.3
+
+IMAGE:
+  PARAMETERS:
+    exposure_time: 90
+    numPix: 100
+    pixel_scale: 0.263
+    psf_type: "GAUSSIAN"
+    read_noise: 7
+    ccd_gain: 6.083
+
+SURVEY:
+  PARAMETERS:
+    BANDS: g,r,i,z,Y
+    seeing: 0.9
+    magnitude_zero_point: 30.0
+    sky_brightness: 23.5
+    num_exposures: 10
+
+SPECIES:
+  GALAXY_1:
+    NAME: LENS
+    LIGHT_PROFILE_1:
+      NAME: SERSIC_ELLIPSE
+      PARAMETERS:
+        magnitude:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 18.0
+              maximum: 21.0
+        center_x: 0.0
+        center_y: 0.0
+        R_sersic:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 2.0
+              maximum: 8.0
+        n_sersic: 4
+        e1:
+          DISTRIBUTION:
+            NAME: symmetric_uniform_annulus
+            PARAMETERS:
+              r1: 0.10
+              r2: 0.25
+        e2:
+          DISTRIBUTION:
+            NAME: symmetric_uniform_annulus
+            PARAMETERS:
+              r1: 0.10
+              r2: 0.25
+    MASS_PROFILE_1:
+      NAME: SIE
+      PARAMETERS:
+        theta_E:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 1.2
+              maximum: 2.8
+        e1:
+          DISTRIBUTION:
+            NAME: symmetric_uniform_annulus
+            PARAMETERS:
+              r1: 0.10
+              r2: 0.20
+        e2:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: -0.2
+              maximum: 0.2
+        center_x: 0.0
+        center_y: 0.0
+    SHEAR_PROFILE_1:
+      NAME: SHEAR
+      PARAMETERS:
+        gamma1:
+          DISTRIBUTION:
+            NAME: symmetric_uniform_annulus
+            PARAMETERS:
+              r1: 0.03
+              r2: 0.08
+        gamma2:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: -0.08
+              maximum: 0.08
+
+  GALAXY_2:
+    NAME: FOREGROUND_GALAXY
+    LIGHT_PROFILE_1:
+      NAME: SERSIC_ELLIPSE
+      PARAMETERS:
+        magnitude:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 18.0
+              maximum: 21.0
+        center_x:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: -0.25
+              maximum: 0.25
+        center_y:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: -0.25
+              maximum: 0.25
+        R_sersic:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 2.0
+              maximum: 8.0
+        n_sersic: 4
+        e1:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: -0.25
+              maximum: 0.25
+        e2:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: -0.25
+              maximum: 0.25
+    MASS_PROFILE_1:
+      NAME: CONVERGENCE
+      PARAMETERS:
+        kappa: 0.0
+        ra_0: 0.0
+        dec_0: 0.0
+
+  GALAXY_3:
+    NAME: SOURCE
+    LIGHT_PROFILE_1:
+      NAME: SERSIC_ELLIPSE
+      PARAMETERS:
+        magnitude:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 21.0
+              maximum: 24.5
+        center_x:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: -0.25
+              maximum: 0.25
+        center_y:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: -0.25
+              maximum: 0.25
+        R_sersic:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 0.5
+              maximum: 3.0
+        n_sersic:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 1.0
+              maximum: 4.0
+        e1:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: -0.3
+              maximum: 0.3
+        e2:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: -0.3
+              maximum: 0.3
+    MASS_PROFILE_1:
+      NAME: CONVERGENCE
+      PARAMETERS:
+        kappa: 0.0
+        ra_0: 0.0
+        dec_0: 0.0
+
+  POINTSOURCE_1:
+    NAME: SUPERNOVA
+    HOST: SOURCE
+    PARAMETERS:
+      magnitude:
+        DISTRIBUTION:
+          NAME: uniform
+          PARAMETERS:
+            minimum: 23.5
+            maximum: 26.5
+      sep:
+        DISTRIBUTION:
+          NAME: uniform
+          PARAMETERS:
+            minimum: 0.4
+            maximum: 2.1
+      sep_unit: arcsec
+
+  POINTSOURCE_2:
+    NAME: STAR
+    HOST: Foreground
+    PARAMETERS:
+      magnitude:
+        DISTRIBUTION:
+          NAME: uniform
+          PARAMETERS:
+            minimum: 23.5
+            maximum: 29.5
+      sep:
+        DISTRIBUTION:
+          NAME: uniform
+          PARAMETERS:
+            minimum: 2.2
+            maximum: 3.2
+      sep_unit: arcsec
+
+  NOISE_1:
+    NAME: POISSON_NOISE
+    PARAMETERS:
+      mean: 1.0
+
+GEOMETRY:
+  CONFIGURATION_1:
+    NAME: LENS_PRESENT
+    FRACTION: 0.5
+    PLANE_1:
+      OBJECT_1: LENS
+      OBJECT_2: STAR
+      OBJECT_3: STAR
+      PARAMETERS:
+        REDSHIFT:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 0.2
+              maximum: 0.6
+    PLANE_2:
+      OBJECT_1: SOURCE
+      OBJECT_2: SUPERNOVA
+      PARAMETERS:
+        REDSHIFT:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 0.8
+              maximum: 2.0
+
+  CONFIGURATION_2:
+    NAME: NO_LENS
+    FRACTION: 0.5
+    PLANE_1:
+      OBJECT_1: FOREGROUND_GALAXY
+      OBJECT_2: STAR
+      OBJECT_3: STAR
+      PARAMETERS:
+        REDSHIFT:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 0.2
+              maximum: 0.6
+    PLANE_2:
+      OBJECT_1: SOURCE
+      OBJECT_2: SUPERNOVA
+      PARAMETERS:
+        REDSHIFT:
+          DISTRIBUTION:
+            NAME: uniform
+            PARAMETERS:
+              minimum: 0.8
+              maximum: 2.0
